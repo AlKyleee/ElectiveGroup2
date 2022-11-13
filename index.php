@@ -33,7 +33,7 @@ if (isset($_POST['txtemail'])) {
 ?>
 
 <body>
-  <div class="container">
+  <div class="con">
     <img src="https://media.discordapp.net/attachments/791227607899045893/1035598183860027452/login.png">
     <form action="" method="POST">
       <div class="form-input">

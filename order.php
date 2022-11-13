@@ -5,69 +5,192 @@ include "session-checker.php";
 <html>
   <head>
     <title>Place your Order</title>
+    <link rel="stylesheet" a href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   </head>
   <body>
     <h1>Order Now!</h1>
+    <br>
     <form>        
-    <section class="burgers">
-        <h2>HAMBURGERS</h2>
-        <input type="checkbox" id="beefBurgerSandwich" name="burgers" value="beefBurgerSandwich">
-        <label for="beefBurgerSandwich"> Beef Burger Sandwich</label><br>
-        <input type="checkbox" id="cheeseBurgerSandwich" name="burgers" value="cheeseBurgerSandwich">
-        <label for="cheeseBurgerSandwich"> Cheese Burger Sandwich</label><br>
-      <br>
-    </section><hr>
+    <div class="container">
+      <h2>HAMBURGERS</h2>
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <button class="card" style="width: 18rem;" class="card" style="width: 18rem;" id="beefBurgerSandwich" name="burgers" value="1">
+                <img class="card-img-top" src="images/bg.png" alt="Beef Burger Sandwich">
+                <div class="card-body w-100">
+                  <h5 class="card-title">Beef Burger Sandwich</h5>
+                  <p class="card-text">Php 30.00</p>
+                </div>
+            </button><br>
+          </div>
+        
+          <div class="col d-flex justify-content-center">
+            <button class="card" style="width: 18rem;" class="card" style="width: 18rem;" id="cheeseBurgerSandwich" name="burgers" value="2"> 
+              <img class="card-img-top" src="images/bg.png" alt="Cheese Burger Sandwich">
+              <div class="card-body w-100">
+                <h5 class="card-title">Cheese Burger Sandwich</h5>
+                <p class="card-text">Php 40.00</p>
+              </div>
+            </button><br>
+          </div>
+        </div>
+        <br>
+        <hr>
 
-    <section class="hotdogSandwiches">
       <h2>HOTDOG SANDWICHES</h2>
-      <input type="checkbox" name="hotdogSandwiches" id="cheesyHotdogSandwich" value="cheesyHotdogSandwich">
-      <label for="cheesyHotdogSandwich">Cheesy Hotdog Sandwich</label><br>
-      <input type="checkbox" name="hotdogSandwiches" id="jumboCheeseFootlongSandwich" value="jumboCheeseFootlongSandwich">
-      <label for="jumboCheeseFootlongSandwich">Jumbo Cheese Footlong Sandwich</label><br>
-      <input type="checkbox" name="hotdogSandwiches" id="cheesyHungarianSausage" value="cheesyHungarianSausage">
-      <label for="cheesyHungarianSausage">Cheesy Hungarian Sausage</label><br>
-      <br>
-    </section> <hr>
-    
-    <section class="hamSandwiches">
-      <h2>HAM SANDWICHES</h2>
-      <input type="checkbox" name="hamSandwiches" id="hamSandwich" value="hamSandwich">
-      <label for="hamSandwich">Ham Sandwich</label><br>
-      <input type="checkbox" name="hamSandwiches" id="hamAndCheeseSandwich" value="hamAndCheeseSandwich">
-      <label for="hamAndCheeseSandwich">Ham & Cheese Sandwich</label><br>
-      <input type="checkbox" name="hamSandwiches" id="hamAndEggSandwich" value="hamAndEggSandwich">
-      <label for="hamAndEggSandwich">Ham & Egg Sandwich</label><br>
-      <input type="checkbox" name="hamSandwiches" id="hamCheeseAndEggSandwich" value="hamCheeseAndEggSandwich">
-      <label for="hamCheeseAndEggSandwich">Ham, Cheese & Egg Sandwich</label><br>
-      <br>
-    </section> <hr>
-    
-    <section class="baconSandwiches">
-      <h2>BACON SANDWICHES</h2>
-      <input type="checkbox" name="baconSandwiches" id="baconSandwich" value="baconSandwich">
-      <label for="baconSandwich">Bacon Sandwich</label><br>
-      <input type="checkbox" name="baconSandwiches" id="baconAndCheeseSandwich" value="baconAndCheeseSandwich">
-      <label for="baconAndCheeseSandwich">Bacon & Cheese Sandwich</label><br>
-      <input type="checkbox" name="baconSandwiches" id="baconAndEggSandwich" value="baconAndEggSandwich">
-      <label for="baconAndEggSandwich">Bacon & Egg Sandwich</label><br>
-      <input type="checkbox" name="baconSandwiches" id="baconCheeseAndEggSandwich" value="baconCheeseAndEggSandwich">
-      <label for="baconCheeseAndEggSandwich">Bacon, Cheese & Egg Sandwich</label><br>
-      <br>
-    </section> <hr>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+        <button class="card" style="width: 18rem;" name="hotdogSandwiches" id="cheesyHotdogSandwich" value="3">
+        <img class="card-img-top" src="images/bg.png" alt="Cheesy Hotdog Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Cheesy Hotdog Sandwich</h5>
+          <p class="card-text">Php 30.00</p>
+        </div>
+      </button><br>
+      </div>
+      <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="hotdogSandwiches" id="jumboCheeseFootlongSandwich" value="4">
+        <img class="card-img-top" src="images/bg.png" alt="Jumbo Cheese Footlong Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Jumbo Cheese Footlong Sandwich</h5>
+          <p class="card-text">Php 45.00</p>
+        </div>
+      </button><br>
+      </div>
+      <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="hotdogSandwiches" id="cheesyHungarianSausage" value="5">
+        <img class="card-img-top" src="images/bg.png" alt="Cheesy Hungarian Sausage">
+        <div class="card-body w-100">
+          <h5 class="card-title">Cheesy Hungarian Sausage</h5>
+          <p class="card-text">Php 55.00</p>
+        </div>
+      </button><br>
+        </div>
+      </div>
+      <hr>
 
-    <section class="drink">
+      <h2>HAM SANDWICHES</h2>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="hamSandwiches" id="hamSandwich" value="6">
+        <img class="card-img-top" src="images/bg.png" alt="Ham Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Ham Sandwich</h5>
+          <p class="card-text">Php 18.00</p>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="hamSandwiches" id="hamAndCheeseSandwich" value="7">
+        <img class="card-img-top" src="images/bg.png" alt="Ham and Cheese Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Ham and Cheese Sandwich</h5>
+          <p class="card-text">Php 23.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="hamSandwiches" id="hamAndEggSandwich" value="8">
+        <img class="card-img-top" src="images/bg.png" alt="Ham and Egg Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Ham and Egg Sandwich</h5>
+          <p class="card-text">Php 30.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="hamSandwiches" id="hamCheeseAndEggSandwich" value="9">
+        <img class="card-img-top" src="images/bg.png" alt="Ham, Cheese and Egg Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Ham, Cheese and Egg Sandwich</h5>
+          <p class="card-text">Php 35.00</p>
+        </div>
+        </button><br>
+        </div>
+      </div>
+      <hr>
+
+      <h2>BACON SANDWICHES</h2>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="baconSandwiches" id="baconSandwich" value="10">
+        <img class="card-img-top" src="images/bg.png" alt="Bacon Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Bacon Sandwich</h5>
+          <p class="card-text">Php 25.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="baconSandwiches" id="baconAndCheeseSandwich" value="11">
+        <img class="card-img-top" src="images/bg.png" alt="Bacon and Cheese Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Bacon and Cheese Sandwich</h5>
+          <p class="card-text">Php 30.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="baconSandwiches" id="baconAndEggSandwich" value="12">
+        <img class="card-img-top" src="images/bg.png" alt="Bacon and Egg Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Bacon and Egg Sandwich</h5>
+          <p class="card-text">Php 37.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="baconSandwiches" id="baconCheeseAndEggSandwich" value="13">
+        <img class="card-img-top" src="images/bg.png" alt="Bacon, Cheese and Egg Sandwich">
+        <div class="card-body w-100">
+          <h5 class="card-title">Bacon, Cheese and Egg Sandwich</h5>
+          <p class="card-text">Php 42.00</p>
+        </div>
+        </button><br>
+        </div>
+      </div>
+      <hr>
+      
       <h2>DRINKS</h2>
-      <input type="checkbox" name="drink" id="liptonIcedTea" value="liptonIcedTea">
-      <label for="liptonIcedTea">Lipton Iced Tea</label><br>
-      <input type="checkbox" name="drink" id="bottledWater" value="bottledWater">
-      <label for="bottledWater">Bottled Water</label><br>
-      <input type="checkbox" name="drink" id="coke" value="coke">
-      <label for="coke">Coke</label><br>
-      <input type="checkbox" name="drink" id="pepsi" value="pepsi">
-      <label for="pepsi">Pepsi</label><br>
-      <br>
-    </section> <hr>
-    
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="drink" id="liptonIcedTea" value="14">
+        <img class="card-img-top" src="images/bg.png" alt="Lipton Iced Tea">
+        <div class="card-body w-100">
+          <h5 class="card-title">Lipton Iced Tea</h5>
+          <p class="card-text">Php 30.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="drink" id="bottledWater" value="15">
+        <img class="card-img-top" src="images/bg.png" alt="Bottled Water">
+        <div class="card-body w-100">
+          <h5 class="card-title">Bottled Water</h5>
+          <p class="card-text">Php 16.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="drink" id="coke" value="16">
+        <img class="card-img-top" src="images/bg.png" alt="Coke">
+        <div class="card-body w-100">
+          <h5 class="card-title">Coke</h5>
+          <p class="card-text">Php 17.00</p>
+        </div>
+      </button><br>
+        </div>
+        <div class="col d-flex justify-content-center">
+      <button class="card" style="width: 18rem;" name="drink" id="pepsi" value="17">
+        <img class="card-img-top" src="images/bg.png" alt="Pepsi">
+        <div class="card-body w-100">
+          <h5 class="card-title">Pepsi</h5>
+          <p class="card-text">Php 17.00</p>
+        </div>
+        </button><br>
+        </div>
+      </div>
+    </div>
     <input type="submit" value="Submit Order">
     </form>
   </body>
