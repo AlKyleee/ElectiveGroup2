@@ -9,7 +9,7 @@
 </head>
 
 <?php
-    if(isset($_POST['first_name']))
+    if(isset($_POST['submit']))
     {
         include "DBconn.php";
         
@@ -23,7 +23,7 @@
         $password = $_POST['txtpassword'];
         
         // mysql query to insert data
-        $query = "INSERT INTO `customer`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password')";
+        $query = "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', 'customer')";
         
         $result = mysqli_query($conn, $query);
         $yes = true;
@@ -66,7 +66,7 @@
       <div class="form-input">
         <input type="password" id="txtpassword" name="txtpassword" placeholder="Password" required>
       </div>
-      <input type="submit" value="SIGN UP" class="btn-login">
+      <input name="submit" type="submit" value="SIGN UP" class="btn-login">
     </form>
     <br><br>
     <a href="index.php">Already have an account? Login here</a>

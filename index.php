@@ -13,22 +13,40 @@
 <?php
 include "DBconn.php";
 $error = "";
-if (isset($_POST['txtemail'])) {
+if (isset($_POST['submit'])) {
   $email = $_POST['txtemail'];
   $password = $_POST['txtpassword'];
-
-  $sql = "select * from admin where email = '$email' and password = '$password'";
+  $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
   $result = mysqli_query($conn, $sql);
-  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-  $count = mysqli_num_rows($result);
-
-  if ($count == 1) {
-    $_SESSION["email"] = $email;
-    header("location: home.php");
+  if (mysqli_num_rows($result) == 1) {
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['email'] = $row['email'];
+    $_SESSION['user_id'] = $row['user_id'];
+    $_SESSION['user_type'] = $row['user_type'];
+    header("Location: home.php");
+    
   } else {
     $error = "<p style='color:white;'>Incorrect E-mail/Password</p>";
   }
 }
+// if (isset($_POST['submit'])) {
+//   $email = $_POST['txtemail'];
+//   $password = $_POST['txtpassword'];
+
+//   $sql = "select * from admin where email = '$email' and password = '$password'";
+//   $result = mysqli_query($conn, $sql);
+//   $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+//   $count = mysqli_num_rows($result);
+
+  
+
+//   if ($count == 1) {
+//     $_SESSION["email"] = $email;
+//     header("location: home.php");
+//   } else {
+//     $error = "<p style='color:white;'>Incorrect E-mail/Password</p>";
+//   }
+// }
 
 ?>
 
@@ -44,7 +62,7 @@ if (isset($_POST['txtemail'])) {
       </div>
       <br>
       <?php echo $error; ?>
-      <input type="submit" value="LOGIN" class="btn-login">
+      <input name="submit" type="submit" value="LOGIN" class="btn-login">
     </form>
     <br>
     <a href="register.php">Don't have an account? Register here!</a>

@@ -1,5 +1,12 @@
 <?php
 include "session-checker.php";
+//if button is clicked
+if(isset($_POST['btn'])){
+  $order_id = rand(1000,9999);
+  $_SESSION['order_id'] = $order_id;
+  header("Location: order.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,11 +40,13 @@ h1, h2, h3, h4, h5, h6 {
 </div>
 
 <!-- Header -->
+  <form action="" method="POST">
     <header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
     <img class="w3-image" src="./images/bg.png" alt="Hamburger Catering" width="1600" height="800">
     <div class="w3-display-middle w3-padding-large w3-opacity">
-        <button class="w3-button w3-black w3-jumbo" onclick="window.location.href='order.php'">ORDER NOW!</button>
+        <button class="w3-button w3-black w3-jumbo" name="btn">ORDER NOW!</button>
     </div>
     </header>
+  </form>
 </body>
 </html>
