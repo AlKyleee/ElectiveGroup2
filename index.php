@@ -29,25 +29,6 @@ if (isset($_POST['submit'])) {
     $error = "<p style='color:white;'>Incorrect E-mail/Password</p>";
   }
 }
-// if (isset($_POST['submit'])) {
-//   $email = $_POST['txtemail'];
-//   $password = $_POST['txtpassword'];
-
-//   $sql = "select * from admin where email = '$email' and password = '$password'";
-//   $result = mysqli_query($conn, $sql);
-//   $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-//   $count = mysqli_num_rows($result);
-
-  
-
-//   if ($count == 1) {
-//     $_SESSION["email"] = $email;
-//     header("location: home.php");
-//   } else {
-//     $error = "<p style='color:white;'>Incorrect E-mail/Password</p>";
-//   }
-// }
-
 ?>
 
 <body>

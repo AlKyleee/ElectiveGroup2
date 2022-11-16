@@ -12,27 +12,34 @@
     if(isset($_POST['submit']))
     {
         include "DBconn.php";
-        
-        // get values form input text and number
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $email = $_POST['last_name'];
-        $contactNum = $_POST['contactNum'];
-        $address = $_POST['streetAddress']." ".$_POST['province']." ".$_POST['city']." ".$_POST['zipCode'];
-        $email = $_POST['txtemail'];
-        $password = $_POST['txtpassword'];
-        
-        // mysql query to insert data
-        $query = "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', 'customer')";
-        
-        $result = mysqli_query($conn, $query);
-        $yes = true;
-        if($result)
+        //check if email already exist
+        $email = $_POST['email'];
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0)
         {
-          header("location: index.php");
-        }else{
-          header("location: error.php");
+            echo "<script>alert('Email already exists'); window.location.href='register.php';</script>";
         }
+        else
+        {
+          $first_name = $_POST['first_name'];
+          $last_name = $_POST['last_name'];
+          $email = $_POST['last_name'];
+          $contactNum = $_POST['contactNum'];
+          $address = $_POST['streetAddress']." ".$_POST['province']." ".$_POST['city']." ".$_POST['zipCode'];
+          $email = $_POST['txtemail'];
+          $password = $_POST['txtpassword'];
+          $query = "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', 'customer')";
+          $result = mysqli_query($conn, $query);
+          $yes = true;
+          if($result)
+          {
+            header("location: index.php");
+          }else{
+            echo "<script>alert('Error!')</script>";
+          }
+        }
+
     }
 ?>
 <body>
