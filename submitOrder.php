@@ -4,17 +4,21 @@ include "session-checker.php";
 $order_id = $_SESSION['order_id'];
 $sql = "SELECT * FROM orderitem WHERE order_id = '$order_id'";
 $result = mysqli_query($conn, $sql);
-
-if(isset($_POST['btnSubmit'])){
-    $notes = $_POST['notes'];
-    $total = $_POST['total'];
-    $order_id = $_SESSION['order_id'];
-    $paymentMode = $_POST['paymentMode'];
-    $sql = "UPDATE orders SET notes = '$notes', total = '$total', paymentMode = '$paymentMode', STATUS = 'Processing' WHERE order_id = '$order_id'";
-    mysqli_query($conn, $sql);
-    echo "<script>alert('Order Confirmed'); window.location.href='home.php';</script>";
-    unset($_SESSION['order_id']);
-}
+    if(mysqli_num_rows($result) == 0){
+        echo "<script>alert('Nothing in Cart!'); window.location.href='orderNow.php';</script>";
+    }
+    else{
+        if(isset($_POST['btnSubmit'])){
+            $notes = $_POST['notes'];
+            $total = $_POST['total'];
+            $order_id = $_SESSION['order_id'];
+            $paymentMode = $_POST['paymentMode'];
+            $sql = "UPDATE orders SET notes = '$notes', total = '$total', paymentMode = '$paymentMode', STATUS = 'Processing' WHERE order_id = '$order_id'";
+            mysqli_query($conn, $sql);
+            echo "<script>alert('Order Confirmed'); window.location.href='home.php';</script>";
+            unset($_SESSION['order_id']);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
