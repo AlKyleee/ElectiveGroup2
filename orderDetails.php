@@ -41,7 +41,7 @@ include "DBconn.php";
               </thead>
               <tbody id="myTable">
               <?php
-              $sql = "SELECT * FROM orders";
+              $sql = "SELECT * FROM orders ORDER BY `orders`.`date_ordered` ASC";
               $result = mysqli_query($conn, $sql);
               while($row = mysqli_fetch_assoc($result)){
                   $order_id = $row['order_id'];
