@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
-$user = "Group2";
-$password = 'password';
+$user = "root";
+$password = '123456';
 $db_name = "electivefinals";
 
 $conn = mysqli_connect($host, $user, $password, $db_name);

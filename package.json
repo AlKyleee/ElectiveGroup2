@@ -1,0 +1,14 @@
+{
+  "name": "php-finals",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AlKyleee/ElectiveGroup2",
+  "author": "Gian Thiam <70900049+gnrflcthm@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "tailwindbuild": "npx tailwind -i ./css/tailwind.css -o ./css/output.css -w"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
