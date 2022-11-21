@@ -60,24 +60,24 @@ if (isset($_POST['btnsubmit'])) {
 
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="id">ID</label>
-      <input class="p-2 rounded-md" type="text" id="user_id" name="user_id" value="<?php echo $user_id; ?>" class="form-control" readonly>
+      <input class="p-2 rounded-md" type="text" id="user_id" name="user_id" value="<?php echo $user_id; ?>" readonly>
     </div>
 
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="date_ordered">Date Ordered</label>
-      <input class="p-2 rounded-md" type="text" id="date_ordered" name="date_ordered" value="<?php echo $date_ordered; ?>" class="form-control" readonly>
+      <input class="p-2 rounded-md" type="text" id="date_ordered" name="date_ordered" value="<?php echo $date_ordered; ?>" readonly>
     </div>
 
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="notes">
         Notes
       </label>
-      <input class="p-2 rounded-md" type="text" id="notes" name="notes" value="<?php echo $notes; ?>" class="form-control" placeholder="Add notes here">
+      <input class="p-2 rounded-md" type="text" id="notes" name="notes" value="<?php echo $notes; ?>" placeholder="Add notes here">
     </div>
 
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="total">Total</label>
-      <input class="p-2 rounded-md" type="text" id="total" name="total" value="<?php echo $total; ?>" class="form-control" readonly>
+      <input class="p-2 rounded-md" type="text" id="total" name="total" value="<?php echo $total; ?>" readonly>
     </div>
 
     <div class="flex flex-col">
