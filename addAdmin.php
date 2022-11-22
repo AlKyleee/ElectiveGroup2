@@ -49,7 +49,7 @@ if (isset($_POST['btnsubmit'])) {
 <body class="w-screen h-screen">
 
     <div class="flex justify-center items-center h-full w-full">
-        <form action="" method="POST" class="relative flex flex-col space-y-4 bg-white bg-opacity-50 backdrop-blur-sm p-8 w-full md:w-2/5 shadow-md overflow-auto h-full">
+        <form action="" method="POST" class="relative flex flex-col space-y-4 bg-white bg-opacity-50 backdrop-blur-sm p-8 w-full md:w-3/5 lg:w-2/6 shadow-md rounded-none md:rounded-md h-full md:h-[95%] overflow-auto">
             <h1 class="text-xl font-bold uppercase text-center">Add Admin</h1>
             <div class="flex flex-col w-full">
                 <label for="first_name" class="font-bold mb-1">First Name</label>
