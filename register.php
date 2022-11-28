@@ -49,13 +49,8 @@
       <div class="form-input flex flex-col justify-start align-stretch mb-4">
         <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="last_name" name="last_name" placeholder="Last Name" required>
       </div>
-<<<<<<< HEAD
-      <div class="form-input">
-        <input type="text" id="contactNum" name="contactNum" placeholder="Contact No. (+631234567890)" pattern="^\+63\d{10}$" required>
-=======
       <div class="form-input flex flex-col justify-start align-stretch mb-4">
-        <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="contactNum" name="contactNum" placeholder="Contact No." required>
->>>>>>> 20824912e9f6cac367082f8a24eb1274270142b8
+        <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="contactNum" name="contactNum" placeholder="Contact No. (+631234567890)" pattern="^\+63\d{10}$" required>
       </div>
       <div class="form-input flex flex-col justify-start align-stretch mb-4">
         <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" required>
