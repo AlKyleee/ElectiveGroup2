@@ -54,7 +54,7 @@ if (isset($_POST['btnsubmit'])) {
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="flex flex-col space-y-2 bg-white bg-opacity-50 backdrop-blur-sm p-8 rounded-md w-3/5 md:w-2/5 shadow-md">
     <h1 class="text-xl font-bold uppercase text-center">Edit User</h1>
     <!-- <label class="font-bold mb-1" for="userId">User ID</label> -->
-    <input type="hidden" id="userId" name="userId" value="<?php echo trim($_GET["userId"]); ?></div>" />
+    <input type="hidden" id="userId" name="userId" value="<?php echo trim($_GET["userId"]); ?>" />
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="first_name">First Name</label>
       <input type="text" id="first_name" name="first_name" class="p-2 rounded-md" value="<?php echo $first_name; ?>" placeholder="First Name" required>
