@@ -65,7 +65,7 @@
         <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="zipCode" name="zipCode" placeholder="Zip Code" required>
       </div>
       <div class="form-input flex flex-col justify-start align-stretch mb-4">
-        <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="txtemail" name="txtemail" placeholder="E-mail" required>
+        <input class="rounded-md px-4 py-2 bg-gray-200" type="text" id="txtemail" name="txtemail" placeholder="E-mail" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$" required>
       </div>
       <div class="form-input flex flex-col justify-start align-stretch mb-4">
         <input class="rounded-md px-4 py-2 bg-gray-200" type="password" id="txtpassword" name="txtpassword" placeholder="Password" required>
