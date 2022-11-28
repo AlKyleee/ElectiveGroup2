@@ -54,7 +54,7 @@
         <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
       </div>
       <div class="form-input">
-        <input type="text" id="contactNum" name="contactNum" placeholder="Contact No." required>
+        <input type="text" id="contactNum" name="contactNum" placeholder="Contact No. (+631234567890)" pattern="^\+63\d{10}$" required>
       </div>
       <div class="form-input">
         <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" required>
