@@ -65,7 +65,7 @@ if (isset($_POST['btnsubmit'])) {
     </div>
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="contact_number">Contact Number</label>
-      <input type="text" id="contact_number" name="contact_number" class="p-2 rounded-md" value="<?php echo $contact_number; ?>" placeholder="Contact Number" required>
+      <input type="text" id="contact_number" name="contact_number" class="p-2 rounded-md" value="<?php echo $contact_number; ?>" placeholder="Contact No. (+631234567890)" pattern="^\+63\d{10}$" required>
     </div>
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="address">Address</label>
@@ -73,7 +73,7 @@ if (isset($_POST['btnsubmit'])) {
     </div>
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="email">Email Address</label>
-      <input type="text" id="email" name="email" class="p-2 rounded-md" value="<?php echo $email; ?>" placeholder="Email" required>
+      <input type="text" id="email" name="email" class="p-2 rounded-md" value="<?php echo $email; ?>" placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$" required>
     </div>
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="password">Password</label>
