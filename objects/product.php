@@ -56,7 +56,8 @@ class Product{
 
     // Converts the Product's properties into an SQL Insert query statement
     public function insertProduct(): string{
-        return "($this->product_id, $this->product_name, $this->price, " .$this->categoryToString() .")";
+        return "INSERT INTO `product` (`product_id`, `product_name`, `price`, `category`) VALUES 
+        ($this->product_id, '$this->product_name', $this->price, '" .$this->categoryToString() ."')";
     }
 }
 
