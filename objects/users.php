@@ -1,12 +1,14 @@
 <?php
 
+include 'abstractObject.php';
+
 // Enumeration for the user_type
 enum UserType {
     case CUSTOMER;
     case ADMIN;
 }
 
-class User{
+class User extends tableObject{
     private string $first_name;
     private string $last_name;
     private string $contactNum;
@@ -49,12 +51,12 @@ class User{
             "address" => $this->address,
             "email" => $this->email,
             "password" => $this->password,
-            "user_type" => $this->userTypeToString()
+            "user_type" => $this->enumToString()
         };
     }
 
     // Converts Enum UserType to String
-    public function userTypeToString(): string{
+    public function enumToString(): string{
         return match($this->user_type){
             UserType::CUSTOMER => "customer",
             UserType::ADMIN => "admin"
@@ -62,15 +64,10 @@ class User{
     }
 
     // Converts the Product's properties into an SQL Insert query statement
-    public function insertProduct(): string{
+    public function insertSQL(): string{
         return "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES 
         ('$this->first_name', '$this->last_name', '$this->contactNum', '$this->address', 
-        '$this->email', '$this->password', '" .$this->userTypeToString() ."')";
+        '$this->email', '$this->password', '" .$this->enumToString() ."')";
     }
 }
-
-// Hamburgers
-$user1 = new User('Jihoon', 'Lee', '+639876545676', '221B Baker street','leejihoon@mail.com', 'password', UserType::CUSTOMER);
-
-echo $user1->insertProduct();
 ?>

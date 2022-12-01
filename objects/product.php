@@ -1,5 +1,7 @@
 <?php
 
+include 'abstractObject.php';
+
 // Enumeration for the Category
 enum Category {
     case HAMBURGERS;
@@ -9,7 +11,7 @@ enum Category {
     case DRINKS;
 }
 
-class Product{
+class Product extends tableObject{
     private int $product_id;
     private string $product_name;
     private int $price;
@@ -39,12 +41,12 @@ class Product{
             "product_id" => $this->product_id,
             "product_name" => $this->product_name,
             "price" => $this->price,
-            "category" => $this->categoryToString()
+            "category" => $this->enumToString()
         };
     }
 
     // Converts Enum Category to String
-    public function categoryToString(): string{
+    public function enumToString(): string{
         return match($this->category){
             Category::HAMBURGERS => "HAMBURGERS",
             Category::HOTDOGSANDWICHES => "HOTDOG SANDWICHES",
@@ -55,9 +57,9 @@ class Product{
     }
 
     // Converts the Product's properties into an SQL Insert query statement
-    public function insertProduct(): string{
+    public function insertSQL(): string{
         return "INSERT INTO `product` (`product_id`, `product_name`, `price`, `category`) VALUES 
-        ($this->product_id, '$this->product_name', $this->price, '" .$this->categoryToString() ."')";
+        ($this->product_id, '$this->product_name', $this->price, '" .$this->enumToString() ."')";
     }
 }
 
@@ -92,6 +94,6 @@ $products = array($product1, $product2, $product3, $product4, $product5, $produc
                 $product11, $product12, $product13, $product14, $product15, $product16, $product17);
 
 foreach ($products as $product){
-    echo $product->insertProduct() ."<br>";
+    echo $product->insertSQL() ."<br>";
 }
 ?>
