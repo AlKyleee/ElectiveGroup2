@@ -11,7 +11,8 @@
   <?php
   if (isset($_POST['submit'])) {
     include "DBconn.php";
-    //check if email already exist
+    include "objects/users.php";
+    // check if email already exist
     $email = $_POST['email'];
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
@@ -25,8 +26,12 @@
       $address = $_POST['streetAddress'] . " " . $_POST['province'] . " " . $_POST['city'] . " " . $_POST['zipCode'];
       $email = $_POST['txtemail'];
       $password = $_POST['txtpassword'];
-      $query = "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', 'customer')";
-      $result = mysqli_query($conn, $query);
+
+      // creating the user as an object
+      $user = new User($first_name, $last_name, $contactNum, $address, $email, $password, UserType::CUSTOMER);
+      // using the insertSQL function from the User class to insert the properties of the user object into SQL
+      $result = mysqli_query($conn, $user->insertSQL());
+
       $yes = true;
       if ($result) {
         header("location: index.php");
