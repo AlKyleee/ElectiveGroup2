@@ -13,7 +13,7 @@
     include "DBconn.php";
     //check if email already exist
     $email = $_POST['email'];
-    $sql = "SELECT * FROM user WHERE email = '$email'";
+    $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
       echo "<script>alert('Email already exists'); window.location.href='register.php';</script>";

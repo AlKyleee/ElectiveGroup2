@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
     header("Location: logout.php");
 }
-include "DBconn.php";
+require_once("Database.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,17 +52,18 @@ include "DBconn.php";
                     </thead>
                     <tbody id="myTable" class="divide-gray-400 divide-y">
                         <?php
-                        $sql = "SELECT * FROM users";
-                        $result = mysqli_query($conn, $sql);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $user_id = $row['user_id'];
-                            $first_name = $row['first_name'];
-                            $last_name = $row['last_name'];
-                            $contact_number = $row['contactNum'];
-                            $address = $row['address'];
-                            $email = $row['email'];
-                            $password = $row['password'];
-                            $usertype = $row['user_type'];
+                        $db = new Database();
+                        $db->query("SELECT * FROM users");
+                        $data = $db->resultSet();
+                        foreach($data as $row){
+                            $user_id = $row->user_id;
+                            $first_name = $row->first_name;
+                            $last_name = $row->last_name;
+                            $contact_number = $row->contactNum;
+                            $address = $row->address;
+                            $email = $row->email;
+                            $password = $row->password;
+                            $usertype = $row->user_type;
                         ?>
                             <tr>
                                 <td class="p-2 px-4 text-center"><?php echo $user_id ?></td>

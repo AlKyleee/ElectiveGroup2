@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
     header("Location: logout.php");
 }
-include "DBconn.php";
+require_once("Database.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,21 +48,23 @@ include "DBconn.php";
                     </thead>
                     <tbody id="myTable" class="divide-gray-400 divide-y">
                         <?php
-                        $sql = "SELECT * FROM orders ORDER BY `orders`.`date_ordered` ASC";
-                        $result = mysqli_query($conn, $sql);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $order_id = $row['order_id'];
-                            $user_id = $row['user_id'];
-                            $date_ordered = $row['date_ordered'];
-                            $notes = $row['notes'];
-                            $total = $row['total'];
-                            $paymentMode = $row['paymentMode'];
-                            $status = $row['STATUS'];
+                        $db = new Database();
+                        $db->query("SELECT * FROM orders ORDER BY `orders`.`date_ordered` ASC");
+                        $data = $db->resultSet();
+                        foreach($data as $row){
+                            $order_id = $row->order_id;
+                            $user_id = $row->user_id;
+                            $date_ordered = $row->date_ordered;
+                            $notes = $row->notes;
+                            $total = $row->total;
+                            $paymentMode = $row->paymentMode;
+                            $status = $row->STATUS;
+                            $order_items = $db->query("SELECT product.product_name, orderitem.quantity FROM orderitem  
+                            INNER JOIN product
+                            ON orderitem.product_id = product.product_id
+                            WHERE orderitem.order_id = '$order_id'");
+                            $order_items = $db->resultSet();
 
-                            $order_items = mysqli_fetch_all(mysqli_query($conn, "SELECT product.product_name, orderitem.quantity FROM orderitem  
-                                                                                         INNER JOIN product
-                                                                                         ON orderitem.product_id = product.product_id
-                                                                                         WHERE orderitem.order_id = '$order_id'"));
                         ?>
                             <tr class="">
                                 <td class="p-2 px-4 text-center"><?php echo $order_id ?></td>
@@ -71,7 +73,7 @@ include "DBconn.php";
                                 <td class="p-2 px-4 text-center">
                                     <ul>
                                         <?php foreach ($order_items as $item) { ?>
-                                            <li class="w-full text-start"><?php echo $item[0] . " x" . $item[1] ?></li>
+                                            <li class="w-full text-start"><?php echo $item->product_name . " x" . $item->quantity ?></li>
                                         <?php } ?>
                                     </ul>
                                 </td>

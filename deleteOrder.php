@@ -12,7 +12,7 @@ if (isset($_POST['btnsubmit'])) {
   $sql = "DELETE FROM orders WHERE order_id = '$orderId'";
   $result = mysqli_query($conn, $sql);
   if ($result) {
-    echo "<script>alert('Successfully Deleted Order'); window.location.href='orderDetails.php';</script>";
+    header("Location: orderDetails.php");
   } else {
     echo "Error deleting record: " . mysqli_error($conn);
   }

@@ -10,7 +10,6 @@ if (isset($_POST['btnsubmit'])) {
   $sql = "DELETE FROM users WHERE user_id = '$user_id'";
   $result = mysqli_query($conn, $sql);
   if ($result) {
-    echo "<script>alert('User Deleted Successfully!')</script>";
     header("Location: userAccounts.php");
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
