@@ -12,22 +12,23 @@ session_start();
 </head>
 
 <?php
-include "DBconn.php";
+include "Database.php";
 $error = "";
 if (isset($_POST['submit'])) {
-  $email = $_POST['txtemail'];
-  $password = $_POST['txtpassword'];
-  $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-  $result = mysqli_query($conn, $sql);
-  if (mysqli_num_rows($result) == 1) {
-    $row = mysqli_fetch_assoc($result);
-    $_SESSION['email'] = $row['email'];
-    $_SESSION['user_id'] = $row['user_id'];
-    $_SESSION['user_type'] = $row['user_type'];
-    header("Location: home.php");
-  } else {
+    $db = new Database();
+    $email = $_POST['txtemail'];
+    $password = $_POST['txtpassword'];
+    $sql = $db->query("SELECT * FROM users WHERE email = '$email' AND password = '$password'");
+    $db->resultSet();
+    if ($db->rowCount() == 1) {
+        $row = $db->single();
+        $_SESSION['email'] = $row->email;
+        $_SESSION['user_id'] = $row->user_id;
+        $_SESSION['user_type'] = $row->user_type;
+        header("Location: home.php");
+    } else {
     $error = "<p style='color:white;'>Incorrect E-mail/Password</p>";
-  }
+    }
 }
 ?>
 

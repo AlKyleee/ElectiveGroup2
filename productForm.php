@@ -1,54 +1,55 @@
 <?php
 include "session-checker.php";
-include "DBconn.php";
+include "Database.php";
 if (isset($_POST['btn'])) {
+    $db = new Database();
     $product_id = $_POST['btn'];
-    $sql = "SELECT * FROM product WHERE product_id = $product_id";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $productName = $row['product_name'];
-    $productPrice = $row['price'];
-
+    $db->query("SELECT * FROM product WHERE product_id = $product_id");
+    $row = $db->single();
+    $productName = $row->product_name;
+    $productPrice = $row->price;
+    $productImage = $row->image;
     $order_id = $_SESSION['order_id'];
     $user_id = $_SESSION['user_id'];
     date_default_timezone_set('Asia/Manila');
-    $date = date("Y-m-d");
+    $date = date("m-d-Y");
     $time = date("H:i:s");
     $date_ordered = $date . " " . $time;
     if (isset($_SESSION['order_id'])) {
-        $sql = "SELECT * FROM orders WHERE order_id = $order_id";
-        $result = mysqli_query($conn, $sql);
-        if (!mysqli_num_rows($result) == 1) {
-            $sql = "INSERT INTO `orders` (`order_id`, `user_id`, `date_ordered`, `notes`, `total`, `paymentMode`, `STATUS`) VALUES ('$order_id', '$user_id', '$date_ordered', null, null, null, 'Pending')";
-            mysqli_query($conn, $sql);
+        $db->query("SELECT * FROM orders WHERE order_id = $order_id");
+        $db->resultSet();
+        if (!$db->rowCount() == 1) {
+            $db->query("INSERT INTO `orders` (`order_id`, `user_id`, `date_ordered`, `notes`, `total`, `paymentMode`, `STATUS`) VALUES ('$order_id', '$user_id', '$date_ordered', null, null, null, 'Pending')");
+            $db->execute();
         }
-        $sql = "SELECT * FROM orderitem WHERE order_id = $order_id AND product_id = $product_id";
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) == 1) {
-            $row = mysqli_fetch_assoc($result);
-            $quantity = $row['quantity'];
+        $db->query("SELECT * FROM orderitem WHERE order_id = $order_id AND product_id = $product_id");
+        $db->resultSet();
+        if ($db->rowCount() == 1) {
+            $row = $db->single();
+            $quantity = $row->quantity;
         } else {
             $quantity = 1;
         }
     }
 }
 if (isset($_POST['btnAdd'])) {
+    $db = new Database();
     $productPrice = $_POST['productPrice'];
     $product_id = $_POST['product_id'];
     $order_id = $_SESSION['order_id'];
     $quantity = $_POST['quantity'];
     $total = $quantity * $productPrice;
-    $sql = "SELECT * FROM orderitem WHERE order_id = $order_id AND product_id = $product_id";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
+    $db->query("SELECT * FROM orderitem WHERE order_id = $order_id AND product_id = $product_id");
+    $db->resultSet();
+    if ($db->rowCount() == 1) {
+        $row = $db->single();
         $quantity = $_POST['quantity'];
         $total = $quantity * $productPrice;
-        $sql = "UPDATE orderitem SET quantity = $quantity, subtotal = $total WHERE order_id = $order_id AND product_id = $product_id";
-        mysqli_query($conn, $sql);
+        $db->query("UPDATE orderitem SET quantity = $quantity, subtotal = $total WHERE order_id = $order_id AND product_id = $product_id");
+        $db->execute();
     } else {
-        $sql = "INSERT INTO `orderitem` (`order_id`, `product_id`, `quantity`, `subtotal`) VALUES ('$order_id', '$product_id', '$quantity', '$total')";
-        mysqli_query($conn, $sql);
+        $db->query("INSERT INTO `orderitem` (`order_id`, `product_id`, `quantity`, `subtotal`) VALUES ('$order_id', '$product_id', '$quantity', '$total')");
+        $db->execute();
         echo "<script>alert('Added to Cart!')</script>";
     }
     header("Location: orderNow.php");
@@ -71,6 +72,9 @@ if (isset($_POST['btnAdd'])) {
         <input type="hidden" name="productPrice" value="<?php echo $productPrice; ?>">
         <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
         <div class="flex flex-col p-4 space-y-4">
+            <div class="object-cover w-full">
+                <img src="images/products/<?php echo $productImage?>" alt="logo" class="w-full" />
+            </div>
             <div class="flex flex-col">
                 <h1 class="text-xl font-bold"><?php echo $productName; ?></h1>
                 <p class="text-md"> &#8369; <?php echo number_format($productPrice, 2) ?></p>

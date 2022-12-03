@@ -1,11 +1,12 @@
 <?php
-include "DBconn.php";
+include "Database.php";
 include "session-checker.php";
+$db = new Database();
 $order_id = $_SESSION['order_id'];
-$sql = "SELECT * FROM orderitem WHERE order_id = '$order_id'";
-$result = mysqli_query($conn, $sql);
+$db->query("SELECT * FROM orderitem WHERE order_id = $order_id");
+$db->execute();
 $hasOrder = false;
-if (mysqli_num_rows($result) == 0) {
+if ($db->rowCount() == 0) {
     // echo "<script>alert('Nothing in Cart!'); window.location.href='orderNow.php';</script>";
     $hasOrder = false;
 } else {
@@ -15,18 +16,20 @@ if (mysqli_num_rows($result) == 0) {
         $total = $_POST['total'];
         $order_id = $_SESSION['order_id'];
         $paymentMode = $_POST['paymentMode'];
-        $sql = "UPDATE orders SET notes = '$notes', total = '$total', paymentMode = '$paymentMode', STATUS = 'Processing' WHERE order_id = '$order_id'";
-        mysqli_query($conn, $sql);
+        $db->query("UPDATE orders SET notes = '$notes', total = '$total', paymentMode = '$paymentMode', STATUS = 'Processing' WHERE order_id = '$order_id'");
+        $db->execute();
         echo "<script>alert('Order Confirmed'); window.location.href='home.php';</script>";
         unset($_SESSION['order_id']);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Order Summary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
@@ -37,7 +40,7 @@ if (mysqli_num_rows($result) == 0) {
 <body class="flex justify-center items-center h-screen w-screen">
     <?php if ($hasOrder) { ?>
         <div class="rounded-md p-4 bg-white bg-opacity-50 backdrop-blur-sm">
-            <h1 class="text-center font-bold text-xl">Checkout</h1>
+            <h1 class="text-center font-bold text-xl">Checkout</h1><br>
             <table class="bg-white bg-opacity-80 rounded-md overflow-auto w-full">
                 <thead class="bg-gray-200 overflow-hidden rounded-t-md">
                     <tr>
@@ -45,31 +48,35 @@ if (mysqli_num_rows($result) == 0) {
                         <th class="p-2 px-4 text-center">Price</th>
                         <th class="p-2 px-4 text-center">Quantity</th>
                         <th class="p-2 px-4 text-center">Subtotal</th>
+                        <th class="p-2 px-4 text-center"></th>
+                        <th class="p-2 px-4 text-center"></th>
                     </tr>
                 </thead>
                 <tbody class="text-left divide-gray-500 divide-y-[1px]">
                     <?php
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $product_id = $row['product_id'];
-                        $quantity = $row['quantity'];
-                        $subtotal = $row['subtotal'];
-                        $sql2 = "SELECT * FROM product WHERE product_id = '$product_id'";
-                        $result2 = mysqli_query($conn, $sql2);
-                        $row2 = mysqli_fetch_assoc($result2);
-                        $product_name = $row2['product_name'];
-                        $price = $row2['price'];
+                    $data = $db->resultSet();
+                    foreach($data as $row){
+                        $order_item_id = $row->order_item_id;
+                        $product_id = $row->product_id;
+                        $quantity = $row->quantity;
+                        $subtotal = $row->subtotal;
+                        $sql2 = $db->query("SELECT * FROM product WHERE product_id = '$product_id'");
+                        $row2 = $db->single();
+                        $product_name = $row2->product_name;
+                        $price = $row2->price;
                     ?>
                         <tr>
                             <td class="p-2 px-4"><?php echo $product_name ?></td>
                             <td class="p-2 px-4 text-center">&#8369;<?php echo number_format($price, 2) ?></td>
                             <td class="p-2 px-4 text-center"><?php echo $quantity ?></td>
                             <td class="p-2 px-4 text-center">&#8369;<?php echo number_format($subtotal, 2) ?></td>
+                            <td class="p-2 px-4 text-center"><a href='updateItem.php?order_item_id=<?php echo $order_item_id ?>' value='<?php echo $order_item_id ?>' class='text-gray-400'><i class="fa-solid fa-gear hover:scale-110 hover:shadow-md"></i></td>
+                            <td class="p-2 px-4 text-center"><a href='deleteItem.php?order_item_id=<?php echo $order_item_id ?>' value='<?php echo $order_item_id ?>' class='text-red-500'><i class="fa-solid fa-trash hover:scale-110 hover:shadow-md"></i></a></td>
                         </tr>
                     <?php }
-                    $sql3 = "SELECT SUM(subtotal) AS total FROM orderitem WHERE order_id = '$order_id'";
-                    $result3 = mysqli_query($conn, $sql3);
-                    $row3 = mysqli_fetch_assoc($result3);
-                    $total = $row3['total'];
+                    $sql3 = $db->query("SELECT SUM(subtotal) AS total FROM orderitem WHERE order_id = '$order_id'");
+                    $row3 = $db->single();
+                    $total = $row3->total;
                     ?>
                     <tr class="border-t-black border-t-2">
                         <td colspan='2' />
@@ -79,7 +86,7 @@ if (mysqli_num_rows($result) == 0) {
                         <td class="p-2 px-4 text-center font-bold">
                             &#8369;<?php echo number_format($total, 2) ?>
                         </td>
-                    </tr>"
+                    </tr>
 
                 </tbody>
             </table>

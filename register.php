@@ -9,38 +9,34 @@
   <link rel="stylesheet" href="./css/output.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php
-  if (isset($_POST['submit'])) {
-    include "DBconn.php";
-    include "objects/users.php";
-    // check if email already exist
-    $email = $_POST['email'];
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-      echo "<script>alert('Email already exists'); window.location.href='register.php';</script>";
-    } else {
-      $first_name = $_POST['first_name'];
-      $last_name = $_POST['last_name'];
-      $email = $_POST['last_name'];
-      $contactNum = $_POST['contactNum'];
-      $address = $_POST['streetAddress'] . " " . $_POST['province'] . " " . $_POST['city'] . " " . $_POST['zipCode'];
-      $email = $_POST['txtemail'];
-      $password = $_POST['txtpassword'];
+    if (isset($_POST['submit'])) {
+        include "Database.php";
+        include "objects/users.php";
+        $db = new Database();
+        // check if email already exist
+        $email = $_POST['txtemail'];
+        $db->query("SELECT * FROM users WHERE email = '$email'");
+        $db->resultSet();
+        if ($db->rowCount() > 0) {
+            echo "<script>alert('Email already exists'); window.location.href='register.php';</script>";
+        } else {
+            $first_name = $_POST['first_name'];
+            $last_name = $_POST['last_name'];
+            $email = $_POST['last_name'];
+            $contactNum = $_POST['contactNum'];
+            $address = $_POST['streetAddress'] . " " . $_POST['province'] . " " . $_POST['city'] . " " . $_POST['zipCode'];
+            $email = $_POST['txtemail'];
+            $password = $_POST['txtpassword'];
 
-      // creating the user as an object
-      $user = new User($first_name, $last_name, $contactNum, $address, $email, $password, UserType::CUSTOMER);
-      // using the insertSQL function from the User class to insert the properties of the user object into SQL
-      $result = mysqli_query($conn, $user->insertSQL());
-
-      $yes = true;
-      if ($result) {
-        header("location: index.php");
-      } else {
-        echo "<script>alert('Error!')</script>";
-      }
+            $db->query("INSERT INTO users (first_name, last_name, email, contactNum, address, password, user_type) VALUES ('$first_name', '$last_name', '$email', '$contactNum', '$address', '$password', 'customer')");
+            if ($db->execute()) {
+                header("location: index.php");
+            } else {
+                echo "<script>alert('Error!')</script>";
+            }
+        }
     }
-  }
-  ?>
+    ?>
 </head>
 
 <body class="flex justify-center items-center w-screen h-screen overflow-hidden bg-center bg-no-repeat bg-cover" style="background-image: url('./images/bg.png')">

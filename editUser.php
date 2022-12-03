@@ -3,17 +3,17 @@ session_start();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
   header("Location: logout.php");
 }
-include "DBconn.php";
+include "Database.php";
+$db = new Database();
 $userId = $_GET['userId'];
-$sql = "SELECT * FROM users WHERE user_id = '$userId'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$first_name = $row['first_name'];
-$last_name = $row['last_name'];
-$contact_number = $row['contactNum'];
-$address = $row['address'];
-$email = $row['email'];
-$password = $row['password'];
+$db->query("SELECT * FROM users WHERE user_id = '$userId'");
+$row = $db->single();
+$first_name = $row->first_name;
+$last_name = $row->last_name;
+$contact_number = $row->contactNum;
+$address = $row->address;
+$email = $row->email;
+$password = $row->password;
 
 if (isset($_POST['btnsubmit'])) {
   $userId = $_POST['userId'];
@@ -23,12 +23,12 @@ if (isset($_POST['btnsubmit'])) {
   $address = $_POST['address'];
   $email = $_POST['email'];
   $password = $_POST['password'];
-  $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', contactNum = '$contact_number', address = '$address', email = '$email', password = '$password' WHERE user_id = '$userId'";
-  $result = mysqli_query($conn, $sql);
+  $db->query("UPDATE users SET first_name = '$first_name', last_name = '$last_name', contactNum = '$contact_number', address = '$address', email = '$email', password = '$password' WHERE user_id = '$userId'");
+  $result = $db->execute();
   if ($result) {
     header("Location: userAccounts.php");
   } else {
-    echo "Error: " . $sql . "" . mysqli_error($conn);
+    echo "Error: " . $db->getError();
   }
 }
 ?>

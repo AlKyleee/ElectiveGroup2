@@ -3,16 +3,17 @@ session_start();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
   header("Location: logout.php");
 }
-include "DBconn.php";
+include "Database.php";
 
 if (isset($_POST['btnsubmit'])) {
+  $db = new Database();
   $user_id = $_POST['userId'];
-  $sql = "DELETE FROM users WHERE user_id = '$user_id'";
-  $result = mysqli_query($conn, $sql);
+  $db->query("DELETE FROM users WHERE user_id = '$user_id'");
+  $result = $db->execute();
   if ($result) {
     header("Location: userAccounts.php");
   } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Error deleting record: " . $db->getError();
   }
 }
 ?>

@@ -3,7 +3,6 @@ session_start();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
     header("Location: logout.php");
 }
-include "DBconn.php";
 ?>
 <!DOCTYPE html>
 <html>

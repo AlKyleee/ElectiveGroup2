@@ -64,7 +64,7 @@ require_once("Database.php");
                             ON orderitem.product_id = product.product_id
                             WHERE orderitem.order_id = '$order_id'");
                             $order_items = $db->resultSet();
-
+                            $user_details = $db->query("SELECT users.last_name, users.first_name, orders.user_id from orders inner JOIN users on orders.user_id = users.user_id;")
                         ?>
                             <tr class="">
                                 <td class="p-2 px-4 text-center"><?php echo $order_id ?></td>
@@ -82,7 +82,7 @@ require_once("Database.php");
                                 <td class="p-2 px-4 text-center"><?php echo $paymentMode ?></td>
                                 <td class="p-2 px-4 text-center font-bold uppercase"><?php echo $status ?></td>
                                 <td class="p-2 px-4 text-center"><a href='editOrder.php?orderId=<?php echo $order_id ?>' value='<?php echo $order_id ?>' class='text-gray-400'><i class="fa-solid fa-gear hover:scale-110 hover:shadow-md"></i></a></td>
-                                <td class="p-2 px-4 text-center"><a href='deleteOrder.php?orderId=<?php echo $order_id ?>' value='<?php echo $order_id ?>' class='text-red-500'><i class="fa-solid fa-trash hover:scale-110 hover:shadow-md"></i></button></td>
+                                <td class="p-2 px-4 text-center"><a href='deleteOrder.php?orderId=<?php echo $order_id ?>' value='<?php echo $order_id ?>' class='text-red-500'><i class="fa-solid fa-trash hover:scale-110 hover:shadow-md"></i></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>

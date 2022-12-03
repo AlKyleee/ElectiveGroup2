@@ -3,17 +3,17 @@ session_start();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
   header("Location: logout.php");
 }
-include "DBconn.php";
+include "Database.php";
+$db = new Database();
 $orderId = $_GET['orderId'];
-$sql = "SELECT * FROM orders WHERE order_id = '$orderId'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$user_id = $row['user_id'];
-$date_ordered = $row['date_ordered'];
-$notes = $row['notes'];
-$total = $row['total'];
-$paymentMode = $row['paymentMode'];
-$status = $row['STATUS'];
+$db->query("SELECT * FROM orders WHERE order_id = '$orderId'");
+$row = $db->single();
+$user_id = $row->user_id;
+$date_ordered = $row->date_ordered;
+$notes = $row->notes;
+$total = $row->total;
+$paymentMode = $row->paymentMode;
+$status = $row->STATUS;
 
 if (isset($_POST['btnsubmit'])) {
   $orderId = $_POST['orderId'];
@@ -24,8 +24,8 @@ if (isset($_POST['btnsubmit'])) {
   $paymentMode = $_POST['paymentMode'];
   $status = $_POST['status'];
 
-  $sql = "UPDATE orders SET notes='$notes', paymentMode='$paymentMode', STATUS='$status' WHERE order_id = '$orderId'";
-  $result = mysqli_query($conn, $sql);
+  $db->query("UPDATE orders SET notes='$notes', paymentMode='$paymentMode', STATUS='$status' WHERE order_id = '$orderId'");
+  $result = $db->execute();
   if ($result) {
     header("Location: orderDetails.php");
   } else {
@@ -83,17 +83,17 @@ if (isset($_POST['btnsubmit'])) {
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="paymentMode">Mode of Payment: </label>
       <select id="paymentMode" class="p-2 rounded-md" name="paymentMode" value="<?php echo $paymentMode; ?>" required>
-        <option value="Gcash">G-Cash</option>
-        <option value="COD">Cash on Delivery</option>
+        <option value="Gcash" <?php echo $paymentMode == "G-Cash" ? "selected" : "" ?>>G-Cash</option>
+        <option value="COD" <?php echo $paymentMode == "COD" ? "selected" : "" ?>>Cash on Delivery</option>
       </select>
     </div>
 
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="status">Status: </label>
       <select id="status" class="p-2 rounded-md" name="status" value="<?php echo $status; ?>" required>
-        <option value="Pending">Pending</option>
-        <option value="Processing">Processing</option>
-        <option value="Delivered">Delivered</option>
+        <option value="Pending" <?php echo $paymentMode == "Pending" ? "selected" : "" ?>>Pending</option>
+        <option value="Processing" <?php echo $paymentMode == "Processing" ? "selected" : "" ?>>Processing</option>
+        <option value="Delivered" <?php echo $paymentMode == "Delivered" ? "selected" : "" ?>>Delivered</option>
       </select>
     </div>
 
