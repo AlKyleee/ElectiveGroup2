@@ -65,7 +65,7 @@ class User extends tableObject{
 
     // Converts the Product's properties into an SQL Insert query statement
     public function insertSQL(): string{
-        return "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES 
+        return "INSERT INTO users(first_name,last_name,contactNum, address, email, password, user_type) VALUES 
         ('$this->first_name', '$this->last_name', '$this->contactNum', '$this->address', 
         '$this->email', '$this->password', '" .$this->enumToString() ."')";
     }

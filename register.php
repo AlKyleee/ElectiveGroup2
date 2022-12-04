@@ -10,9 +10,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php
     if (isset($_POST['submit'])) {
+
+        // import objects
         include "Database.php";
         include "objects/users.php";
+
         $db = new Database();
+
         // check if email already exist
         $email = $_POST['txtemail'];
         $db->query("SELECT * FROM users WHERE email = '$email'");
@@ -28,7 +32,11 @@
             $email = $_POST['txtemail'];
             $password = $_POST['txtpassword'];
 
-            $db->query("INSERT INTO users (first_name, last_name, email, contactNum, address, password, user_type) VALUES ('$first_name', '$last_name', '$email', '$contactNum', '$address', '$password', 'customer')");
+            // create the user as an object
+            $user = new User($first_name, $last_name, $email, $contactNum, $address, $password, UserType::CUSTOMER);
+
+            // use the functions of the object for queries and executing
+            $db->query($user->insertSQL());
             if ($db->execute()) {
                 header("location: index.php");
             } else {

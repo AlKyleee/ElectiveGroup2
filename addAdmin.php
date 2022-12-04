@@ -5,6 +5,11 @@ if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
     header("Location: logout.php");
 }
 if (isset($_POST['btnsubmit'])) {
+
+    // import objects
+    include "Database.php";
+    include "objects/users.php";
+
     //check if email already exists
     $email = $_POST['email'];
     $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -18,10 +23,14 @@ if (isset($_POST['btnsubmit'])) {
         $address = $_POST['streetAddress'] . " " . $_POST['province'] . " " . $_POST['city'] . " " . $_POST['zipCode'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $user_type = "admin";
-        $sql = "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', '$user_type')";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
+
+        // create the user as an object
+        $user = new User($first_name, $last_name, $email, $contactNum, $address, $password, UserType::ADMIN);
+        
+        // use the functions of the objects for queries and executing
+        $db->query($user->insertSQL());
+
+        if ($db->execute()) {
             header("location: userAccounts.php");
         } else {
             echo "<script>alert('Error!')</script>";
