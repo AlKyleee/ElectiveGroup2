@@ -70,7 +70,4 @@ class User extends abstractTable{
         '$this->email', '$this->password', '" .$this->enumToString() ."')";
     }
 }
-
-$test = new User("John", "Doe", "09123456789", "1234 Street", "email", "password", UserType::CUSTOMER);
-echo $test->insertSQL();
 ?>
