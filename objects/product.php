@@ -1,6 +1,6 @@
 <?php
 
-include 'abstractObject.php';
+include 'abstractTable.php';
 
 // Enumeration for the Category
 enum Category {
@@ -11,7 +11,7 @@ enum Category {
     case DRINKS;
 }
 
-class Product extends tableObject{
+class Product extends abstractTable{
     private int $product_id;
     private string $product_name;
     private int $price;

@@ -8,7 +8,7 @@ enum UserType {
     case ADMIN;
 }
 
-class User extends tableObject{
+class User extends abstractTable{
     private string $first_name;
     private string $last_name;
     private string $contactNum;
