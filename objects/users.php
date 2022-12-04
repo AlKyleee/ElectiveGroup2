@@ -49,7 +49,6 @@ class User extends abstractTable{
         };
     }
 
-
     // Converts the Product's properties into an SQL Insert query statement
     public function insertSQL(): string{
         return "INSERT INTO users(first_name,last_name,contactNum, address, email, password, user_type) VALUES 
@@ -57,4 +56,7 @@ class User extends abstractTable{
         '$this->email', '$this->password', '" .$this->user_type ."')";
     }
 }
+
+$user = new User('Tiffany', 'Young', '+639288198535', 'Kwangya street', 'tiffanyoung@gmail.com', 'password', 'customer');
+echo $user->insertSQL();
 ?>
