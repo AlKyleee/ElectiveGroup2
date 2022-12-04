@@ -1,15 +1,16 @@
 <?php
 session_start();
-include "DBconn.php";
+include "Database.php";
+$db = new Database();
 if (!isset($_SESSION['email']) || ($_SESSION['user_type'] != 'admin')) {
     header("Location: logout.php");
 }
 if (isset($_POST['btnsubmit'])) {
     //check if email already exists
     $email = $_POST['email'];
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
+    $db->query("SELECT * FROM users WHERE email = '$email'");
+    $result = $db->single();
+    if ($result != 0) {
         echo "<script>alert('Email already exists'); window.location.href='addAdmin.php';</script>";
     } else {
         $first_name = $_POST['first_name'];
@@ -19,8 +20,8 @@ if (isset($_POST['btnsubmit'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user_type = "admin";
-        $sql = "INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', '$user_type')";
-        $result = mysqli_query($conn, $sql);
+        $db->query("INSERT INTO `users`(`first_name`,`last_name`,`contactNum`, `address`, `email`, `password`, `user_type`) VALUES ('$first_name','$last_name','$contactNum','$address','$email','$password', '$user_type')");
+        $result = $db->execute();
         if ($result) {
             header("location: userAccounts.php");
         } else {
