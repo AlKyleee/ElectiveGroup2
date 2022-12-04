@@ -91,9 +91,9 @@ if (isset($_POST['btnsubmit'])) {
     <div class="flex flex-col">
       <label class="font-bold mb-1" for="status">Status: </label>
       <select id="status" class="p-2 rounded-md" name="status" value="<?php echo $status; ?>" required>
-        <option value="Pending" <?php echo $paymentMode == "Pending" ? "selected" : "" ?>>Pending</option>
-        <option value="Processing" <?php echo $paymentMode == "Processing" ? "selected" : "" ?>>Processing</option>
-        <option value="Delivered" <?php echo $paymentMode == "Delivered" ? "selected" : "" ?>>Delivered</option>
+        <option value="Pending" <?php echo $status == "Pending" ? "selected" : "" ?>>Pending</option>
+        <option value="Processing" <?php echo $status == "Processing" ? "selected" : "" ?>>Processing</option>
+        <option value="Delivered" <?php echo $status == "Delivered" ? "selected" : "" ?>>Delivered</option>
       </select>
     </div>
 
