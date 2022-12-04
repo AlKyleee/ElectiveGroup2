@@ -28,7 +28,7 @@ if (isset($_POST['btnsubmit'])) {
         $password = $_POST['password'];
 
         // create the user as an object
-        $user = new User($first_name, $last_name, $contactNum, $address, $email, $password, UserType::ADMIN);
+        $user = new User($first_name, $last_name, $contactNum, $address, $email, $password, "admin");
         
         // use the functions of the objects for queries and executing
         $db->query($user->insertSQL());

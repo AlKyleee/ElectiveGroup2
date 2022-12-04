@@ -2,12 +2,6 @@
 
 include 'abstractTable.php';
 
-// Enumeration for the user_type
-enum UserType {
-    case CUSTOMER;
-    case ADMIN;
-}
-
 class User extends abstractTable{
     private string $first_name;
     private string $last_name;
@@ -15,11 +9,11 @@ class User extends abstractTable{
     private string $address;
     private string $email;
     private string $password;
-    private UserType $user_type;
+    private string $user_type;
 
     // Constructor
     public function __construct(string $first_name, string $last_name, string $contactNum, string $address, 
-                                string $email, string $password, UserType $user_type){
+                                string $email, string $password, string $user_type){
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->contactNum = $contactNum;
@@ -51,23 +45,16 @@ class User extends abstractTable{
             "address" => $this->address,
             "email" => $this->email,
             "password" => $this->password,
-            "user_type" => $this->enumToString()
+            "user_type" => $this->user_type
         };
     }
 
-    // Converts Enum UserType to String
-    public function enumToString(): string{
-        return match($this->user_type){
-            UserType::CUSTOMER => "customer",
-            UserType::ADMIN => "admin"
-        };
-    }
 
     // Converts the Product's properties into an SQL Insert query statement
     public function insertSQL(): string{
         return "INSERT INTO users(first_name,last_name,contactNum, address, email, password, user_type) VALUES 
         ('$this->first_name', '$this->last_name', '$this->contactNum', '$this->address', 
-        '$this->email', '$this->password', '" .$this->enumToString() ."')";
+        '$this->email', '$this->password', '" .$this->user_type ."')";
     }
 }
 ?>

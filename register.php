@@ -33,7 +33,7 @@
             $password = $_POST['txtpassword'];
 
             // create the user as an object
-            $user = new User($first_name, $last_name, $contactNum, $address, $email, $password, UserType::CUSTOMER);
+            $user = new User($first_name, $last_name, $contactNum, $address, $email, $password, "customer");
 
             // use the functions of the objects for queries and executing
             $db->query($user->insertSQL());
