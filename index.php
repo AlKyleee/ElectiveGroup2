@@ -12,6 +12,9 @@ session_start();
 </head>
 
 <?php
+if (isset($_SESSION['email'])) {
+	header("location: home.php");
+}
 include "Database.php";
 $error = "";
 if (isset($_POST['submit'])) {
