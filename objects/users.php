@@ -1,6 +1,6 @@
 <?php
 
-include 'abstractObject.php';
+include 'abstractTable.php';
 
 // Enumeration for the user_type
 enum UserType {
